@@ -27,6 +27,15 @@ class People(db.Model):
 
     favorites: Mapped[List["Favorite"]] = relationship(back_populates="people")
 
+    def serialize(self):
+        return{
+            "id": self.id,
+            "name": self.name,
+            "gender": self.gender,
+            "height": self.height,
+            "eye_color": self.eye_color
+        }
+
 
 class Planet(db.Model):
     __tablename__ = 'planet'

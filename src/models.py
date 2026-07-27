@@ -86,6 +86,10 @@ class Favorite(db.Model):
         back_populates="favorites")
     planet: Mapped[Optional["Planet"]] = relationship(
         back_populates="favorites")
+    
+    __table_args__ = (
+        db.UniqueConstraint('user_id', 'people_id', name='unique_user_people_favorite'),
+    )
 
     def serialize(self):
         return {

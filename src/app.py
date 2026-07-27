@@ -136,12 +136,12 @@ def delete_favorite_planet(planet_id):
 def delete_favorite_people(people_id):
     current_user_id = 1
 
-    fav = db.session.execute(
+    fav = db.session.scalars(
         db.select(Favorite).where(
-            Favorite.user_id == current_user_id,
-            Favorite.people_id == people_id
+        Favorite.user_id == current_user_id,
+        Favorite.people_id == people_id
         )
-    ).scalar_one_or_none()
+    ).first()
 
     if not fav:
         return jsonify({"error": "Favorite people not found"}), 404
